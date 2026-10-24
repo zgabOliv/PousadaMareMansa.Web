@@ -1,7 +1,5 @@
 # Pousada Maré Mansa: site em ASP.NET Core MVC (PIM IV)
 
-Requisitos: .NET 8 SDK e SQL Server 2019+.
-
 ## Passo a passo
 1. No SQL Server, execute `Database/01_banco.sql` e depois `Database/02_procedures_mvc.sql`.
 2. Crie os usuários de banco (comentário no final do 02) e troque as senhas.
