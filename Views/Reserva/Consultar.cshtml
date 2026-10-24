@@ -1,0 +1,25 @@
+@model ConsultaModel
+@{ ViewData["Title"] = "Minha reserva"; }
+<h1>Minha reserva</h1>
+<form asp-action="Consultar" method="post" class="stack">
+  <div asp-validation-summary="All" class="err"></div>
+  <label>Código da reserva<input asp-for="Codigo" placeholder="MM-XXXXX"></label>
+  <label>E-mail usado na reserva<input asp-for="Email" type="email"></label>
+  <button type="submit">Consultar</button>
+</form>
+@if (Model.Info is { } r)
+{
+  <section class="card">
+    <h2>@r.Tipo</h2>
+    <p>@r.DataEntrada.ToString("dd/MM/yyyy") a @r.DataSaida.ToString("dd/MM/yyyy") (@r.Noites noite(s)), @r.QtdHospedes hóspede(s)</p>
+    <p>Total @r.ValorTotal.ToString("C"). Pago @r.ValorPago.ToString("C"). Situação: <strong>@r.Status</strong></p>
+    @if (r.Status is "Pendente" or "Confirmada")
+    {
+      <form asp-action="Cancelar" method="post">
+        <input type="hidden" name="codigo" value="@r.Codigo"><input type="hidden" name="email" value="@Model.Email">
+        <button type="submit" class="danger">Cancelar reserva</button>
+      </form>
+      <p class="muted">Cancelamento gratuito até 7 dias antes da entrada.</p>
+    }
+  </section>
+}

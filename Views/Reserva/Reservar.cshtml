@@ -1,0 +1,15 @@
+@model ReservaInput
+@{ ViewData["Title"] = "Reservar"; }
+<h1>Seus dados</h1>
+<p class="muted">Período: @Model.Entrada.ToString("dd/MM/yyyy") a @Model.Saida.ToString("dd/MM/yyyy"), @Model.Hospedes hóspede(s).</p>
+<form asp-action="Reservar" method="post" class="stack">
+  <div asp-validation-summary="All" class="err"></div>
+  <input type="hidden" asp-for="IdTipoQuarto">
+  <input type="hidden" name="Entrada" value="@Model.Entrada.ToString("yyyy-MM-dd")">
+  <input type="hidden" name="Saida" value="@Model.Saida.ToString("yyyy-MM-dd")">
+  <input type="hidden" asp-for="Hospedes">
+  <label>Nome completo<input asp-for="Nome" autocomplete="name"></label>
+  <label>E-mail<input asp-for="Email" type="email" autocomplete="email"></label>
+  <label>WhatsApp<input asp-for="Telefone" inputmode="tel" autocomplete="tel" placeholder="(13) 99999-9999"></label>
+  <button type="submit">Confirmar reserva</button>
+</form>

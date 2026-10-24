@@ -1,0 +1,27 @@
+@model BuscaResultado
+@{ ViewData["Title"] = "Quartos disponíveis"; var hoje = DateTime.Today.ToString("yyyy-MM-dd"); }
+<h1>Quartos disponíveis</h1>
+<form method="get" class="book">
+  <label>Entrada<input type="date" name="Entrada" min="@hoje" value="@Model.Busca.Entrada?.ToString("yyyy-MM-dd")" required></label>
+  <label>Saída<input type="date" name="Saida" min="@hoje" value="@Model.Busca.Saida?.ToString("yyyy-MM-dd")" required></label>
+  <label>Hóspedes<input type="number" name="Hospedes" min="1" max="8" value="@Model.Busca.Hospedes"></label>
+  <button type="submit">Buscar</button>
+</form>
+<div asp-validation-summary="All" class="err"></div>
+@if (Model.Noites > 0)
+{
+  @if (Model.Itens.Count == 0) { <p>Não há quartos livres para esse período. Tente outras datas.</p> }
+  <div class="grid">
+  @foreach (var i in Model.Itens)
+  {
+    <article class="card">
+      <h3>@i.Nome</h3>
+      <p class="muted">Até @i.Capacidade hóspedes. @i.QuartosLivres disponível(is).</p>
+      <p class="price">@i.ValorTotal.ToString("C") <small>por @Model.Noites noite(s)</small></p>
+      <a class="btn" asp-action="Reservar" asp-route-IdTipoQuarto="@i.IdTipoQuarto"
+         asp-route-Entrada="@Model.Busca.Entrada?.ToString("yyyy-MM-dd")" asp-route-Saida="@Model.Busca.Saida?.ToString("yyyy-MM-dd")"
+         asp-route-Hospedes="@Model.Busca.Hospedes">Reservar</a>
+    </article>
+  }
+  </div>
+}

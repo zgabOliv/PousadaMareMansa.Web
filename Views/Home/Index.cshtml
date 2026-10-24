@@ -1,0 +1,25 @@
+@model List<TipoQuarto>
+@{ ViewData["Title"] = "Início"; var hoje = DateTime.Today.ToString("yyyy-MM-dd"); }
+<section class="hero">
+  <h1>Acorde com o som do mar.</h1>
+  <p>Pousada familiar no litoral paulista, a 3 minutos a pé da praia. Café da manhã incluso e atendimento direto com os donos.</p>
+  <form method="get" asp-controller="Reserva" asp-action="Buscar" class="book">
+    <label>Entrada<input type="date" name="Entrada" min="@hoje" required></label>
+    <label>Saída<input type="date" name="Saida" min="@hoje" required></label>
+    <label>Hóspedes<select name="Hospedes"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+    <button type="submit">Ver quartos disponíveis</button>
+  </form>
+</section>
+<h2>Nossos quartos</h2>
+<div class="grid">
+@foreach (var t in Model)
+{
+  <article class="card">
+    <h3>@t.Nome</h3>
+    <p>@t.Descricao</p>
+    <p class="muted">Até @t.Capacidade hóspedes. @t.Comodidades</p>
+    @if (t.Acessivel) { <p><strong>Quarto acessível</strong></p> }
+    <p class="price">@t.PrecoDiaria.ToString("C") <small>por noite</small></p>
+  </article>
+}
+</div>

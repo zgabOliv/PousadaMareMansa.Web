@@ -1,0 +1,32 @@
+@model List<ReservaAdmin>
+@{ ViewData["Title"] = "Painel"; }
+<h1>Reservas</h1>
+<div class="scroll">
+<table>
+  <thead><tr><th>Código</th><th>Hóspede</th><th>Quarto</th><th>Período</th><th>Total</th><th>Pago</th><th>Situação</th><th>Ações</th></tr></thead>
+  <tbody>
+  @foreach (var r in Model)
+  {
+    <tr>
+      <td>@r.Codigo</td><td>@r.Hospede</td><td>@r.Quarto (@r.Tipo)</td>
+      <td>@r.DataEntrada.ToString("dd/MM") a @r.DataSaida.ToString("dd/MM/yy")</td>
+      <td>@r.ValorTotal.ToString("C")</td><td>@r.ValorPago.ToString("C")</td><td>@r.Status</td>
+      <td>
+        @if (r.Status is "Pendente" or "Confirmada")
+        {
+          <form asp-action="Pagar" method="post" class="inline">
+            <input type="hidden" name="codigo" value="@r.Codigo">
+            <input type="number" name="valor" step="0.01" min="0.01" required aria-label="Valor" style="width:6rem">
+            <select name="forma" aria-label="Forma"><option>Pix</option><option>Cartao</option><option>Dinheiro</option></select>
+            <button type="submit">Pagar</button>
+          </form>
+          <form asp-action="CancelarReserva" method="post" class="inline">
+            <input type="hidden" name="codigo" value="@r.Codigo"><button type="submit" class="danger">Cancelar</button>
+          </form>
+        }
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+</div>

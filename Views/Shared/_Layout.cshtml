@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>@ViewData["Title"] - Pousada Maré Mansa</title>
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+</head>
+<body>
+<a class="skip" href="#main">Ir para o conteúdo</a>
+<header>
+  <strong>Pousada Maré Mansa</strong>
+  <nav aria-label="Principal">
+    <a asp-controller="Home" asp-action="Index">Início</a>
+    <a asp-controller="Reserva" asp-action="Consultar">Minha reserva</a>
+    <a asp-controller="Home" asp-action="Contato">Contato</a>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+      <a asp-controller="Admin" asp-action="Index">Painel</a>
+      <form asp-controller="Admin" asp-action="Logout" method="post" class="inline"><button class="link">Sair</button></form>
+    }
+  </nav>
+</header>
+<main id="main">
+  @if (TempData["Ok"] is string ok) { <p class="ok" role="status">@ok</p> }
+  @if (TempData["Erro"] is string er) { <p class="err" role="alert">@er</p> }
+  @RenderBody()
+</main>
+<footer>© 2026 Pousada Maré Mansa. Projeto acadêmico do PIM IV, UNIP. Empresa e dados fictícios.
+  <a asp-controller="Admin" asp-action="Login">Área administrativa</a></footer>
+</body>
+</html>

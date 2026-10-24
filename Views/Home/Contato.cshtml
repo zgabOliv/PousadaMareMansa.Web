@@ -1,0 +1,11 @@
+@model ContatoModel
+@{ ViewData["Title"] = "Contato"; }
+<h1>Fale com a gente</h1>
+<p class="muted">Atendimento diário, das 8h às 20h. WhatsApp (13) 90000-0000.</p>
+<form asp-action="Contato" method="post" class="stack">
+  <div asp-validation-summary="ModelOnly" class="err"></div>
+  <label>Nome<input asp-for="Nome" autocomplete="name"><span asp-validation-for="Nome" class="err"></span></label>
+  <label>E-mail<input asp-for="Email" type="email" autocomplete="email"><span asp-validation-for="Email" class="err"></span></label>
+  <label>Mensagem<textarea asp-for="Texto" rows="4"></textarea><span asp-validation-for="Texto" class="err"></span></label>
+  <button type="submit">Enviar mensagem</button>
+</form>

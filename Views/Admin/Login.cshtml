@@ -1,0 +1,9 @@
+@model LoginModel
+@{ ViewData["Title"] = "Entrar"; }
+<h1>Área administrativa</h1>
+<form asp-action="Login" method="post" class="stack">
+  <div asp-validation-summary="All" class="err"></div>
+  <label>Usuário<input asp-for="Login" autocomplete="username"></label>
+  <label>Senha<input asp-for="Senha" autocomplete="current-password"></label>
+  <button type="submit">Entrar</button>
+</form>

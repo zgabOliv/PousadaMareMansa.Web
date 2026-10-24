@@ -1,0 +1,6 @@
+@model string
+@{ ViewData["Title"] = "Reserva registrada"; }
+<h1>Reserva registrada</h1>
+<p class="ok">Seu código é <strong>@Model</strong>. Guarde-o: com ele e seu e-mail você consulta ou cancela a reserva.</p>
+<p>Entraremos em contato pelo WhatsApp em até 2 horas com as instruções de pagamento. A reserva é confirmada quando o pagamento é registrado.</p>
+<a class="btn" asp-action="Consultar">Consultar minha reserva</a>
